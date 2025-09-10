@@ -49,6 +49,9 @@ class BinaryTree:
             # 3. The node has two childrens
             else:
                 inorder_successor = _inorder_successor(current_node.right)
+                current_node.data = inorder_successor.data
+                current_node.right = self._delete_recursive(current_node.right, successor)
+
         return current_node
     def _inorder_successor(self, current_node):
         successor = current_node
