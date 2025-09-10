@@ -25,6 +25,43 @@ class BinaryTree:
                 current_node.right = Node(data)
             else:
                 self._insert_recursive(data, current_node.right)
+                
+    def delete(self, data):
+        self.root = self._delete_recursive(current_node, data)
+    
+    def _delete_recursive(self, current_node, data):
+        if current_node is None:
+            return current_node
+        if current_node.data > data:
+            current_node.left = self. _delete_recursive(current_node.left, data) 
+        elif current_node.data < data:
+            current_node.right = self._delete_recursive(current_node.right, data)
+        else:
+            # I found the node to be deleted
+            # 1. The node is a leaf
+            if current_node.left is None and current_node.right is None:
+                return None
+            # 2. the node has only one child
+            elif current_node.left is None:
+                return current_node.right
+            elif current_node.right is None:
+                return current_node.left
+            # 3. The node has two childrens
+            else:
+                inorder_successor = _inorder_successor(current_node.right)
+        return current_node
+    def _inorder_successor(self, current_node):
+        successor = current_node
+        while successor.left is not None:
+            successor = successor.left
+        
+        return successor
+        
+    
+        
+        
+             
+        
 
 # Building a short perfect tree.
 # A perfect tree has 2^h leaf nodes and 2^(h + 1) -1 total nodes.
@@ -66,3 +103,9 @@ def postorder(root_node):
 inorder(my_tree.root)    
 preorder(my_tree.root)
 postorder(my_tree.root)
+
+# Deletion of a node in the tree seems a bit complex
+# There rises three cases when I want to delete a node
+# 1. The node is a leaf then I can simply delete it.
+# 2. The node is has a single child, then I can replace it with its child value and delete the child node
+# 3. The node can have two childrens then I have to replace the parent node with the in-order successor and delete the in-order successor node.
