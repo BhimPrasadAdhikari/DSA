@@ -5,12 +5,34 @@ class Node:
         self.left = None
         self.right = None
 
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, data):
+        if self.root is None:
+            self.root = Node(data)
+        else:
+            self._insert_recursive(data, self.root)
+    def _insert_recursive(self, data, current_node):
+        if data < current_node.data:
+            if current_node.left is None:
+                current_node.left = Node(data)
+            else:
+                self._insert_recursive(data, current_node.left)
+        else:
+            if current_node.right is None:
+                current_node.right = Node(data)
+            else:
+                self._insert_recursive(data, current_node.right)
 
 # Building a short perfect tree.
 # A perfect tree has 2^h leaf nodes and 2^(h + 1) -1 total nodes.
-root = Node(10)
-root.left = Node(20)
-root.right = Node(30)
+my_tree = BinaryTree()
+
+datas = [10,20,30,40,50]
+for data in datas:
+    my_tree.insert(data)
 
 # Traversing the tree
 
@@ -41,6 +63,6 @@ def postorder(root_node):
     
     
 
-inorder(root)    
-preorder(root)
-postorder(root)
+inorder(my_tree.root)    
+preorder(my_tree.root)
+postorder(my_tree.root)
